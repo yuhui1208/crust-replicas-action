@@ -22,18 +22,22 @@ async function main() {
         typesBundle: typesBundleForPolkadot
     });
 
-    const _api = await chain.isReadyOrError;
+    await chain.isReadyOrError;
 
-    const file = parsObj(await _api.query.market.files(cid));
+    const file = parsObj(await chain.query.market.files(cid));
 
     console.log('file', file)
 
+
     if (file) {
+        console.log('reported_replica_count', file.reported_replica_count)
         core.setOutput('replicaCount', file.reported_replica_count);
     } else {
+        console.log('error', error)
         core.setOutput('replicaCount', 0);
     }
     
+    await chain.disconnect()
 }
 
 main().catch(error => {
