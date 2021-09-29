@@ -15,6 +15,9 @@ async function main() {
     const cid = core.getInput('cid'); // Currently, we only support CIDv0
     const chainAddr = core.getInput('crust-endpoint');
 
+    console.log('cid', cid)
+    console.log('chainAddr', chainAddr)
+
     // 2. Check cid
     if (!checkCid(cid)) {
         throw new Error('Illegal inputs');
@@ -26,9 +29,11 @@ async function main() {
         typesBundle: typesBundleForPolkadot
     });
 
-    await chain.isReadyOrError;
+    const _api = await chain.isReadyOrError;
 
-    const file = parsObj(await chain.query.market.files(cid));
+    const file = parsObj(await _api.query.market.files(cid));
+
+    console.log('file', file)
 
     if (file) {
         core.setOutput('replicaCount', file.reported_replica_count);
@@ -6077,7 +6082,7 @@ module.exports = { mask, unmask };
 
 
 try {
-  module.exports = require(__nccwpck_require__.ab + "prebuilds/win32-x64/node.napi.node");
+  module.exports = require(__nccwpck_require__.ab + "prebuilds/win32-x64/node.napi1.node");
 } catch (e) {
   module.exports = __nccwpck_require__(57218);
 }
@@ -31106,7 +31111,7 @@ module.exports = isValidUTF8;
 
 
 try {
-  module.exports = require(__nccwpck_require__.ab + "prebuilds/win32-x64/node.napi1.node");
+  module.exports = require(__nccwpck_require__.ab + "prebuilds/win32-x64/node.napi.node");
 } catch (e) {
   module.exports = __nccwpck_require__(92534);
 }
